@@ -12,6 +12,9 @@ httpx>=0.27.0
 # 工具
 python-dotenv>=1.0.0
 
+# JWT 认证
+python-jose[cryptography]>=3.3.0
+
 agent-framework>=1.0.0rc2
 
 # 安装完依赖后，需执行一次可编辑安装使 app.* 绝对导入在所有环境生效：

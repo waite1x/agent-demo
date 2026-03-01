@@ -39,7 +39,6 @@ class Settings(BaseSettings):
     # ------- 安全 / JWT（预留） -------
     SECRET_KEY: str = "change-me-in-production"
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
     # ------- 数据库（预留） -------
     DATABASE_URL: Optional[str] = None
