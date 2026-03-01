@@ -16,13 +16,25 @@ router = APIRouter()
 _START_TIME = time.time()
 
 
-@router.get("", summary="存活检测 (Liveness)")
+@router.get(
+    "",
+    summary="存活检测 (Liveness)",
+    description="确认进程仍在运行，适用于 Kubernetes liveness probe。",
+    response_model=ApiResponse,
+    responses={200: {"description": "服务运行中"}},
+)
 async def liveness():
     logger.debug("liveness probe ok")
     return ApiResponse.ok(data={"status": "alive"}, message="服务运行中")
 
 
-@router.get("/ready", summary="就绪检测 (Readiness)")
+@router.get(
+    "/ready",
+    summary="就绪检测 (Readiness)",
+    description="确认服务已完成初始化并可接收流量，适用于 Kubernetes readiness probe。",
+    response_model=ApiResponse,
+    responses={200: {"description": "服务就绪"}},
+)
 async def readiness():
     uptime_seconds = int(time.time() - _START_TIME)
     logger.debug(f"readiness probe ok | uptime={uptime_seconds}s")
@@ -33,3 +45,4 @@ async def readiness():
         },
         message="服务就绪",
     )
+

@@ -17,6 +17,32 @@ from app.api.v1.router import api_router
 setup_logging()
 logger = logging.getLogger(__name__)
 
+# --------------------------------------------------------------------------- #
+# OpenAPI Tags 元数据
+# --------------------------------------------------------------------------- #
+OPENAPI_TAGS = [
+    {
+        "name": "Root",
+        "description": "服务根路径，返回基本服务信息。",
+    },
+    {
+        "name": "Health",
+        "description": "健康检查接口。\n\n"
+                        "- **GET /health** — 存活探针（Liveness），确认进程仍在运行。\n"
+                        "- **GET /health/ready** — 就绪探针（Readiness），确认服务已完成初始化并可接收流量。",
+    },
+    {
+        "name": "Agent",
+        "description": "AI Agent 相关接口。\n\n"
+                        "目前提供基于 `agent-framework` 的**计算器工作流**示例，"
+                        "演示 Fan-Out / Fan-In 多步骤 Agent 编排模式。",
+    },
+    {
+        "name": "Demo",
+        "description": "演示接口，展示统一响应格式、分页、参数校验及业务异常处理等典型用法。",
+    },
+]
+
 
 # --------------------------------------------------------------------------- #
 # 生命周期
@@ -44,6 +70,13 @@ def create_app() -> FastAPI:
         docs_url="/docs",
         redoc_url="/redoc",
         openapi_url="/openapi.json",
+        openapi_tags=OPENAPI_TAGS,
+        contact={
+            "name": "Agent API Team",
+        },
+        license_info={
+            "name": "MIT",
+        },
     )
 
     # ---- 中间件（注意：后注册先执行） ----

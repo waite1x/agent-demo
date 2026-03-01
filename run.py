@@ -1,6 +1,8 @@
 """
 开发启动脚本
-运行方式：python run.py
+运行方式：
+  python run.py          # 直接运行（热重载）
+  uvicorn run:app        # uvicorn 直接引用
 """
 import uvicorn
 from app.config import settings
