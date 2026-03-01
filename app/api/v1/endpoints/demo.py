@@ -11,7 +11,13 @@ from app.schemas.response import ApiResponse, PageResponse
 from app.core.exceptions import NotFoundError, AppException
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
+
+TAG_META = {
+    "name": "Demo",
+    "description": "演示接口，展示统一响应格式、分页、参数校验及业务异常处理等典型用法。",
+}
+
+router = APIRouter(tags=["Demo"])
 
 # 模拟数据
 _FAKE_ITEMS = [{"id": i, "name": f"item-{i}", "value": i * 10} for i in range(1, 21)]

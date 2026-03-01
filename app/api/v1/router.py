@@ -9,6 +9,6 @@ from app.api.v1.endpoints.agent import router as agent_router
 
 api_router = APIRouter()
 
-api_router.include_router(health_router, prefix="/health", tags=["Health"])
-api_router.include_router(agent_router,  prefix="/agent",  tags=["Agent"])
-api_router.include_router(demo_router,   prefix="/demo",   tags=["Demo"])
+api_router.include_router(health_router, prefix="/health")
+api_router.include_router(agent_router,  prefix="/agent")
+api_router.include_router(demo_router,   prefix="/demo")

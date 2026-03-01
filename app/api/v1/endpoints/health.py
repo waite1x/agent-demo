@@ -10,7 +10,15 @@ from fastapi import APIRouter
 from app.schemas.response import ApiResponse
 
 logger = logging.getLogger(__name__)
-router = APIRouter()
+
+TAG_META = {
+    "name": "Health",
+    "description": "健康检查接口。\n\n"
+                   "- **GET /health** — 存活探针（Liveness），确认进程仍在运行。\n"
+                   "- **GET /health/ready** — 就绪探针（Readiness），确认服务已完成初始化并可接收流量。",
+}
+
+router = APIRouter(tags=["Health"])
 
 # 记录服务启动时间
 _START_TIME = time.time()
