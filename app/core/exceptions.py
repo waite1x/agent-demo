@@ -81,7 +81,7 @@ def _error_response(
             "code": code,
             "message": message,
             "data": data,
-            "request_id": request_id,
+            "requestId": request_id,
         },
     )
 

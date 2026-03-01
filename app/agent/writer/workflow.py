@@ -2,7 +2,6 @@ from agent_framework import Workflow, WorkflowBuilder
 from app.agent.core.agent import create_agent
 
 
-
 def create_workflow() -> Workflow:
     writer = create_agent(
         name="writer",
@@ -19,10 +18,9 @@ def create_workflow() -> Workflow:
         ),
     )
 
-    return (WorkflowBuilder(start_executor=writer)
+    return (WorkflowBuilder(start_executor=writer, name="writer_workflow", description="Writer Agent 工作流")
             .add_edge(writer, reviewer)
             .build())
 
 
 workflow = create_workflow()
-

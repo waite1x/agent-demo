@@ -19,22 +19,25 @@
       "items": [...],
       "total": 100,
       "page": 1,
-      "page_size": 10,
-      "total_pages": 10
+      "pageSize": 10,
+      "totalPages": 10
     }
   }
 """
 from typing import Any, Generic, List, Optional, TypeVar
 
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from app.schemas import ResponseBase
 
 DataT = TypeVar("DataT")
 
 
-class ApiResponse(BaseModel, Generic[DataT]):
+class ApiResponse(ResponseBase, Generic[DataT]):
     """通用响应模型"""
+
     success: bool = True
-    code: int = 200
+    http_code: int = 200
     message: str = "ok"
     data: Optional[DataT] = None
 
@@ -45,7 +48,7 @@ class ApiResponse(BaseModel, Generic[DataT]):
         message: str = "ok",
         code: int = 200,
     ) -> "ApiResponse":
-        return cls(success=True, code=code, message=message, data=data)
+        return cls(success=True, http_code=code, message=message, data=data)
 
     @classmethod
     def fail(
@@ -54,11 +57,12 @@ class ApiResponse(BaseModel, Generic[DataT]):
         code: int = 40000,
         data: Any = None,
     ) -> "ApiResponse":
-        return cls(success=False, code=code, message=message, data=data)
+        return cls(success=False, http_code=code, message=message, data=data)
 
 
-class PageResponse(BaseModel, Generic[DataT]):
+class PageResponse(ResponseBase, Generic[DataT]):
     """分页数据模型"""
+
     items: List[Any] = Field(default_factory=list)
     total: int = 0
     page: int = 1

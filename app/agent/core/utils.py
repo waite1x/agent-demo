@@ -1,17 +1,13 @@
 from typing import List, Any
 
 from agent_framework import AgentResponse
-from openai import BaseModel
+
+from app.schemas import ResponseBase
 
 
-class WorkflowResponse(BaseModel):
-    author: str |None = None
-    text: str|None = None
-
-    def __init__(self, author: str |None = None, text: str|None = None):
-        super().__init__()
-        self.author = author
-        self.text = text
+class WorkflowResponse(ResponseBase):
+    author_name: str | None = None
+    text: str | None = None
 
 
 def parse_workflow_response(response: List[Any]) -> List[WorkflowResponse]:
@@ -26,6 +22,6 @@ def parse_workflow_response(response: List[Any]) -> List[WorkflowResponse]:
     for item in response:
         if isinstance(item, AgentResponse):
             for message in item.messages:
-                results.append(WorkflowResponse(author=message.author_name, text=message.text))
+                results.append(WorkflowResponse(author_name=message.author_name, text=message.text))
 
     return results
